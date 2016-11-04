@@ -20,7 +20,9 @@ shinyUI(fluidPage(
       textInput("non_blue","Number of non-Blue Smarties"),
       checkboxInput("showExpected", "Show Expected Values",value=FALSE),
       checkboxInput("showGroup","Show hidden group information",value=FALSE),
-      actionButton("update","Update Table")
+      radioButtons("plotType",label="Type of Plot",choices=c("scatter","boxplot"),selected = "scatter"),
+      actionButton("update","Update Table"),
+      actionButton("reset", "Reset")
     ),
 
     # Show a plot of the generated distribution
@@ -29,7 +31,7 @@ shinyUI(fluidPage(
 #    ),
 
     mainPanel(
-      tableOutput("table1"),
+#      tableOutput("table1"),
       plotOutput("freq"),
       verbatimTextOutput("themean")
     )
