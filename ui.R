@@ -18,8 +18,9 @@ shinyUI(fluidPage(
       textInput("Number","Tube Label"),
       textInput("blue", "Number of Blue Smarties"),
       textInput("non_blue","Number of non-Blue Smarties"),
-      checkboxInput("showExpected", "Show Expected Values",value=FALSE),
-      checkboxInput("showGroup","Show hidden group information",value=FALSE),
+      checkboxInput("showMean", "Show Estimated Mean?",value=FALSE),
+      checkboxInput("showExpected", "Show Expected Values?",value=FALSE),
+      checkboxInput("showGroup","Show hidden group information?",value=FALSE),
       radioButtons("plotType",label="Type of Plot",choices=c("scatter","boxplot"),selected = "scatter"),
       actionButton("update","Update Table"),
       actionButton("reset", "Reset")
