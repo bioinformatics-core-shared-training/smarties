@@ -18,14 +18,20 @@ shinyUI(fluidPage(
       textInput("Number","Tube Label"),
       textInput("blue", "Number of Blue Smarties"),
       textInput("non_blue","Number of non-Blue Smarties"),
-
+      checkboxInput("showExpected", "Show Expected Values",value=FALSE),
+      checkboxInput("showGroup","Show hidden group information",value=FALSE),
       actionButton("update","Update Table")
     ),
 
     # Show a plot of the generated distribution
+ #   mainPanel(
+#      tableOutput("table1")
+#    ),
+
     mainPanel(
-      tableOutput("table1")
-#      plotOutput("freq")
+      tableOutput("table1"),
+      plotOutput("freq"),
+      verbatimTextOutput("themean")
     )
   )
 ))
