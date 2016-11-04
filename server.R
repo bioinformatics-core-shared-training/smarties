@@ -90,7 +90,7 @@ shinyServer(function(input, output,session) {
         
         obsVals <- unique(df$Number[which(df$Type == "Observed")])
 
-
+       df <- filter(df, Number %in% obsVals)
         
         
         if(!input$showGroup) {
