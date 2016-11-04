@@ -10,8 +10,7 @@ library(dplyr)
 library(ggplot2)
 
 shinyServer(function(input, output,session) {
-  df1 <- read.csv("frequencies.csv",stringsAsFactors = FALSE) 
-  #re-calculate the allele frequency to make sure they're correct
+  df1 <- read.csv("frequencies.csv",stringsAsFactors = FALSE) #re-calculate the allele frequency to make sure they're correct
   df1$Allele.Freq <- 100*(df1$blue / (df1$not.blue + df1$blue))
   
   values <- reactiveValues()
