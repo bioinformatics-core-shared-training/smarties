@@ -80,10 +80,11 @@ shinyServer(function(input, output,session) {
           if(input$showMean) p <- p + geom_hline(yintercept=estMean,col="red") 
         } else{
           
+          df <- filter(df,Type=="Observed")
           overallMean <- mean(df$Allele.Freq)
 
           
-          df <- filter(df,Type=="Observed") %>% group_by(Grade)
+          df <- group_by(df,Grade)
           estMean <- summarise(df, Mean=mean(Allele.Freq)) %>% select(-Grade)
           if(input$showMean)  {
             p <- p + geom_hline(yintercept=overallMean,col="red") 
