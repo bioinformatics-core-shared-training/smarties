@@ -22,6 +22,7 @@ shinyUI(fluidPage(
       checkboxInput("showExpected", "Show Expected Values?",value=FALSE),
       checkboxInput("showGroup","Show hidden group information?",value=FALSE),
       radioButtons("plotType",label="Type of Plot",choices=c("scatter","boxplot"),selected = "scatter"),
+      sliderInput("ymax","Limit on y-axis", max = 100,value=27,min=5),
       actionButton("update","Update Table"),
       actionButton("reset", "Reset")
     ),

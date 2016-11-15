@@ -66,10 +66,10 @@ shinyServer(function(input, output,session) {
         obsVals <- unique(df$Number[which(df$Type == "Observed")])
         
         p <- ggplot(filter(df, Number %in% obsVals), aes(x = Position, y= Allele.Freq,col=Grade,alpha=Type)) + geom_point(size=5) + 
-        scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + scale_alpha_discrete(range=c(0.1,1)) + ylim(0,35) + scale_x_continuous(breaks=1:20, limits=c(0,20))
+        scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + scale_alpha_discrete(range=c(0.1,1)) + ylim(0,as.numeric(input$ymax)) + scale_x_continuous(breaks=1:20, limits=c(0,20)) + xlab("") + theme(axis.text.y = element_text(colour="grey20",size=20,hjust=.5,vjust=.5,face="plain"))
         } else{
           p <- ggplot(df, aes(x = Position, y= Allele.Freq,col=Grade)) + geom_point(size=5)  + 
-            scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + ylim(0,35) + scale_x_continuous(breaks=1:20, limits=c(0,20))
+            scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + ylim(0,as.numeric(input$ymax)) + scale_x_continuous(breaks=1:20, limits=c(0,20)) +  xlab("") + theme(axis.text.y = element_text(colour="grey20",size=20,hjust=.5,vjust=.5,face="plain"))
           
         }
         
@@ -89,7 +89,8 @@ shinyServer(function(input, output,session) {
           estMean <- summarise(df, Mean=mean(Allele.Freq)) %>% select(-Grade)
           if(input$showMean)  {
             p <- p + geom_hline(yintercept=overallMean,col="red") 
-            p <- p + geom_hline(yintercept=as.numeric(estMean$Mean)[1],col=c(rgb(29,0,150,maxColorValue=255))) + geom_hline(yintercept=as.numeric(estMean$Mean)[2],col=c(rgb(236,0,140,maxColorValue=255)))
+            p <- p + geom_hline(yintercept=as.numeric(estMean$Mean)[1],col=c(rgb(29,0,150,maxColorValue=255))) + geom_hline(yintercept=as.numeric(estMean$Mean)[2],col=c(rgb(236,0,140,maxColorValue=255))) 
+                                                                                                                                                                                                                 
         }
         }
       
@@ -102,7 +103,7 @@ shinyServer(function(input, output,session) {
         
         if(!input$showGroup) {
           df <- mutate(df, X="x")
-          p <- ggplot(df, aes(x=X, y = Allele.Freq)) + geom_boxplot(fill="grey",col="black") + geom_point(size=5) + ylim(0,35)
+          p <- ggplot(df, aes(x=X, y = Allele.Freq)) + geom_boxplot(fill="grey",col="black") + geom_point(size=5) + ylim(0,as.numeric(input$ymax))
 
           df <- filter(df,Type=="Observed")
           estMean <- mean(df$Allele.Freq)
@@ -112,7 +113,7 @@ shinyServer(function(input, output,session) {
           p <- ggplot(df, aes(x=Grade, y = Allele.Freq,col=Grade,fill=Grade)) + geom_boxplot(col="black") + geom_point(size=5) + 
             scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + 
             scale_fill_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + 
-            ylim(0,35)
+            ylim(0,as.numeric(input$ymax))
           df <- filter(df,Type=="Observed")
           overallMean <- mean(df$Allele.Freq)
           
