@@ -65,10 +65,10 @@ shinyServer(function(input, output,session) {
         if(input$showExpected){
         obsVals <- unique(df$Number[which(df$Type == "Observed")])
         
-        p <- ggplot(filter(df, Number %in% obsVals), aes(x = Position, y= Allele.Freq,col=Grade,alpha=Type)) + geom_point(size=5) + 
+        p <- ggplot(filter(df, Number %in% obsVals), aes(x = Number, y= Allele.Freq,col=Grade,alpha=Type)) + geom_point(size=5) + 
         scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + scale_alpha_discrete(range=c(0.1,1)) + ylim(0,as.numeric(input$ymax)) + scale_x_continuous(breaks=1:20, limits=c(0,20)) + xlab("") + theme(axis.text.y = element_text(colour="grey20",size=20,hjust=.5,vjust=.5,face="plain"))
         } else{
-          p <- ggplot(df, aes(x = Position, y= Allele.Freq,col=Grade)) + geom_point(size=5)  + 
+          p <- ggplot(df, aes(x = Number, y= Allele.Freq,col=Grade)) + geom_point(size=5)  + 
             scale_color_manual(values = c("High grade"=rgb(29,0,150,maxColorValue=255), "Low grade"=rgb(236,0,140,maxColorValue=255))) + ylim(0,as.numeric(input$ymax)) + scale_x_continuous(breaks=1:20, limits=c(0,20)) +  xlab("") + theme(axis.text.y = element_text(colour="grey20",size=20,hjust=.5,vjust=.5,face="plain"))
           
         }
